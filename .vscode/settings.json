@@ -1,11 +1,13 @@
 {
   "cSpell.words": [
+    "autoflush",
     "databse",
     "dotenv",
     "fastapi",
     "langchain",
     "psycopg",
     "redoc",
+    "sessionmaker",
     "sqlalchemy",
     "uvicorn"
   ]
