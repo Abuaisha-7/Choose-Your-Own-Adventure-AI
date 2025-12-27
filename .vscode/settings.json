@@ -1,0 +1,11 @@
+{
+  "cSpell.words": [
+    "dotenv",
+    "fastapi",
+    "langchain",
+    "psycopg",
+    "redoc",
+    "sqlalchemy",
+    "uvicorn"
+  ]
+}
