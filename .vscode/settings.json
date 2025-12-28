@@ -4,6 +4,7 @@
     "databse",
     "dotenv",
     "fastapi",
+    "groq",
     "langchain",
     "psycopg",
     "redoc",
