@@ -1,8 +1,42 @@
-import React from 'react'
+import { useState } from 'react'
 
-const ThemeInput = () => {
+const ThemeInput = ({onSubmit}) => {
+    const [theme, setTheme] = useState('')
+    const [error, setError] = useState('')
+
+    const handleSubmit = (e) => {
+    e.preventDefault()
+    if (theme.trim() === '') {
+      setError('Theme cannot be empty')
+      return
+    }
+    onSubmit(theme)
+    setTheme('')
+    setError('')
+  }
+
   return (
-    <div>ThemeInput</div>
+    <div className='theme-input-container'>
+      <h2>Generate Your Adventure</h2>
+      <p>Enter a theme for Your interactive story</p>
+
+      <form onSubmit={handleSubmit}>
+        <div className='input-group'>
+          <input
+            type="text"
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+            placeholder="Enter a theme (e.g., fantasy, sci-fi, mystery, space...)"
+            className={error ? 'error' : ''}
+          />
+          {error && <p className='error-text'>{error}</p>}
+          
+        </div>
+        
+          <button type="submit" className='generate-btn'>Generate Story</button>
+        
+      </form>
+    </div>
   )
 }
 
