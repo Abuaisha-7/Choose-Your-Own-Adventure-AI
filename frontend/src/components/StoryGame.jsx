@@ -1,8 +1,89 @@
-import React from 'react'
+import React, { use, useEffect, useState } from 'react'
 
-const StoryGame = () => {
+const StoryGame = ({story, onNewStory}) => {
+  const [currentNodeId, setCurrentNodeId] = useState(null)
+  const [currentNode, setCurrentNode] = useState(null)
+  const [options, setOptions] = useState([])
+  const [isEnding, setIsEnding] = useState(false)
+  const [isWinning, setIsWinning] = useState(false)
+
+  useEffect(() => {
+    if(story && story.root_node.id) {
+      const rootNodeId = story.root_node.id
+      setCurrentNodeId(rootNodeId)
+    }
+  }, [story])
+
+  useEffect(() => {
+    if(currentNodeId && story && story.all_nodes) {
+      const node = story.all_nodes[currentNodeId]
+
+      setCurrentNode(node)
+      setIsEnding(node.is_ending)
+      setIsWinning(node.is_winning)
+
+      if(!node.is_ending &&  node.options && node.options.length > 0) {
+        setOptions(node.options)
+      } else {
+        setOptions([])
+      }
+
+    }
+  }, [currentNodeId, story])
+
+  const chooseOption = (optionId) => {
+    setCurrentNodeId(optionId)
+  }
+
+  const restartStory = () => {
+    if(story && story.root_node) {
+      setCurrentNodeId(story.root_node.id)
+    }
+  }
+
   return (
-    <div>StoryGame</div>
+    <div className='story-game'>
+      <header className='story-header'>
+        <h2>{story.title}</h2>
+      </header>
+
+      <div className='story-content'>
+        {currentNode && <div className='story-node'>
+          <p>{currentNode.content}</p>
+
+          {isEnding ? <div className='story-ending'>
+            <h3>{isWinning ? 'Congratulations' : 'The End'}</h3>
+            {isWinning ? "You reached a winning ending" : "Your Adventure has come to an end."}
+          </div> 
+          :
+          <div className='story-options'>
+            <h3>What will you do?</h3>
+            <div>
+              {options.map((option, index) => {
+                return <button 
+                        key={index} 
+                        onClick={() => chooseOption(option.node_id)}
+                        className='option-btn'
+                        >
+                            {option.text}
+                      </button>
+              })}
+            </div>
+          </div>
+          }
+        </div> }
+        <div className='story-controls'>
+          <button onClick={restartStory} className='reset-btn'>
+            Restart Story
+          </button>
+        </div>
+
+        {onNewStory && <button onClick={onNewStory} className='new-story-btn'>
+           New Story
+          </button>
+        }
+      </div>
+    </div>
   )
 }
 
