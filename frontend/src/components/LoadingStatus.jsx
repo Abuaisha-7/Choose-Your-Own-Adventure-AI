@@ -6,7 +6,7 @@ const LoadingStatus = ({theme}) => {
         <h1>Generating Your {theme} Story</h1>
 
         <div className='loading-animation'>
-            <div className='loading-spinner'></div>
+            <div className='spinner'></div>
         </div>
 
         <p className='loading-info'>
