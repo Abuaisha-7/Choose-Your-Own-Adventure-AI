@@ -10,6 +10,7 @@
     "redoc",
     "sessionmaker",
     "sqlalchemy",
-    "uvicorn"
+    "uvicorn",
+    "VITE"
   ]
 }
