@@ -9,6 +9,7 @@
     "langchain",
     "psycopg",
     "redoc",
+    "serviceurl",
     "sessionmaker",
     "sqlalchemy",
     "uvicorn",

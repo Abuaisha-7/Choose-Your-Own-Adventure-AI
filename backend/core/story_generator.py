@@ -9,6 +9,8 @@ from models.story import Story, StoryNode
 from core.prompts import STORY_PROMPT
 from core.models import StoryLLMResponse, StoryNodeLLM
 from dotenv import load_dotenv
+import os
+
 
 load_dotenv()
 
@@ -17,6 +19,12 @@ class StoryGenerator:
 
     @classmethod
     def _get_llm(cls):
+        groq_api_key = os.getenv("GROQ_API_KEY")
+        serviceurl = os.getenv("CHOREO_BACKEND_SERVICEURL")
+
+        if groq_api_key and serviceurl:
+            return ChatGroq(model="llama-3.1-8b-instant", api_key=groq_api_key, base_url=serviceurl)
+
         return ChatGroq(model="llama-3.1-8b-instant")
 
     @classmethod
